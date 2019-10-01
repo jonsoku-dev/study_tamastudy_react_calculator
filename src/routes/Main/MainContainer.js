@@ -41,6 +41,8 @@ const Main = () => {
 
   const handleReset = () => {
     setResult(0);
+    setValue([]);
+    setCal(0);
   };
 
   console.log(result);
