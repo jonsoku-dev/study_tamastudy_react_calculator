@@ -82,7 +82,7 @@ const NumberWrapper = styled.div`
     }
 
     &:nth-of-type(10) {
-      grid-column: 1 / 3;
+      grid-column: 1 / -1;
     }
     transition: all 0.2s ease;
     &:hover {
@@ -92,9 +92,10 @@ const NumberWrapper = styled.div`
   }
 `;
 
-const MainPresenter = ({ value, cal, handleNumber }) => {
+const MainPresenter = ({ result, value, handleNumber, handleCal, handleResult, handleReset }) => {
   const renderNumber = () => {
-    const Number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+    const Number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    // const Number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     Number.sort((a, b) => {
       return b - a;
     });
@@ -107,21 +108,26 @@ const MainPresenter = ({ value, cal, handleNumber }) => {
 
   const renderFunction = () => {
     const Function = ['+', '-', '*', '/'];
-    return Function.map((f, i) => (
-      <button onClick={() => handleNumber(null, f)} key={i}>
-        {f}
-      </button>
-    ));
+    return (
+      <>
+        {Function.map((f, i) => (
+          <button onClick={() => handleCal(f)} key={i}>
+            {f}
+          </button>
+        ))}
+        <button onClick={() => handleResult()}>=</button>
+        <button value="CE" onClick={() => handleReset()}>
+          CE
+        </button>
+      </>
+    );
   };
 
   return (
     <MainContainer>
-      <ResultWrapper>{value}</ResultWrapper>
+      <ResultWrapper>{result}</ResultWrapper>
       <FunctionWrapper>{renderFunction()}</FunctionWrapper>
       <NumberWrapper>{renderNumber()}</NumberWrapper>
-      <button value="CE" onClick={e => console.log(e.target.value)}>
-        CE
-      </button>
     </MainContainer>
   );
 };
