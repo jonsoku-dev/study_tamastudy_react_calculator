@@ -92,7 +92,7 @@ const NumberWrapper = styled.div`
   }
 `;
 
-const MainPresenter = ({ result, value, handleNumber, handleCal, handleResult, handleReset }) => {
+const MainPresenter = ({ value, handleNumber, handleCal }) => {
   const renderNumber = () => {
     const Number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     // const Number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -115,17 +115,15 @@ const MainPresenter = ({ result, value, handleNumber, handleCal, handleResult, h
             {f}
           </button>
         ))}
-        <button onClick={() => handleResult()}>=</button>
-        <button value="CE" onClick={() => handleReset()}>
-          CE
-        </button>
+        <button>=</button>
+        <button>CE</button>
       </>
     );
   };
 
   return (
     <MainContainer>
-      <ResultWrapper>{result}</ResultWrapper>
+      <ResultWrapper>{value}</ResultWrapper>
       <FunctionWrapper>{renderFunction()}</FunctionWrapper>
       <NumberWrapper>{renderNumber()}</NumberWrapper>
     </MainContainer>
