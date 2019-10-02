@@ -5,7 +5,9 @@ const MainContainer = styled.div`
   width: 500px;
   margin: 50px auto 0;
 `;
-
+const FormulaWrapper = styled.div`
+  text-align: right;
+`;
 const ResultWrapper = styled.div`
   text-align: right;
 `;
@@ -92,7 +94,7 @@ const NumberWrapper = styled.div`
   }
 `;
 
-const MainPresenter = ({ value, handleNumber, handleCal }) => {
+const MainPresenter = ({ value, result, handleNumber, handleCal, handleReset }) => {
   const renderNumber = () => {
     const Number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     // const Number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -107,7 +109,7 @@ const MainPresenter = ({ value, handleNumber, handleCal }) => {
   };
 
   const renderFunction = () => {
-    const Function = ['+', '-', '*', '/'];
+    const Function = ['+', '-', '*', '/', '='];
     return (
       <>
         {Function.map((f, i) => (
@@ -115,15 +117,17 @@ const MainPresenter = ({ value, handleNumber, handleCal }) => {
             {f}
           </button>
         ))}
-        <button>=</button>
-        <button>CE</button>
+        <button onClick={() => handleReset()}>CE</button>
       </>
     );
   };
 
+  console.log(value);
+
   return (
     <MainContainer>
-      <ResultWrapper>{value}</ResultWrapper>
+      <FormulaWrapper>{value.length === 0 ? '입력해주세요' : value}</FormulaWrapper>
+      <ResultWrapper>{result}</ResultWrapper>
       <FunctionWrapper>{renderFunction()}</FunctionWrapper>
       <NumberWrapper>{renderNumber()}</NumberWrapper>
     </MainContainer>

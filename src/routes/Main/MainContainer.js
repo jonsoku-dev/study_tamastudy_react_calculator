@@ -3,22 +3,36 @@ import MainPresenter from './MainPresenter';
 
 const Main = () => {
   const [value, setValue] = useState([]);
+  const [result, setResult] = useState(0);
 
   const handleNumber = num => {
     setValue([...value, num]);
   };
 
   const handleCal = f => {
-    setValue([...value, f]);
+    if (f !== '=') {
+      setValue([...value, f]);
+    } else {
+      const formula = value.join('');
+      const formulaResult = eval(formula);
+      setResult(formulaResult);
+    }
   };
 
   const handleReset = () => {
     setValue([]);
+    setResult(0);
   };
 
-  console.log(value);
-
-  return <MainPresenter handleNumber={handleNumber} handleCal={handleCal} value={value} />;
+  return (
+    <MainPresenter
+      handleNumber={handleNumber}
+      handleCal={handleCal}
+      handleReset={handleReset}
+      value={value}
+      result={result}
+    />
+  );
 };
 
 export default Main;
